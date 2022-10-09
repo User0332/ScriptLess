@@ -1,11 +1,20 @@
 import scriptless
+from scriptless import WebAPIBase, Window, Document, Location
 from flask import Flask, render_template
-from scriptless import window
 
 app = Flask(__name__)
 app.debug = False
 
 scriptless.init(app)
+
+def change_heading(window: Window, document: Document, location: Location):
+	heading = document.getElementById("heading")
+	
+	heading.innerText+=" hi"
+
+scriptless.register_function(
+	changeHeading=change_heading
+)
 
 @app.route('/')
 def index():
@@ -15,7 +24,6 @@ def index():
 
 @app.route("/otherpage")
 def other():
-	window.location.href = "/redirected"
 	return scriptless.render(
 		"other page"
 	)
@@ -23,7 +31,7 @@ def other():
 @app.route("/redirected")
 def redirected():
 	return scriptless.render(
-		f"redirected to this page [{window.location.href}]"
+		"redirected here!"
 	)
 	
 if __name__ == "__main__":
