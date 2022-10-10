@@ -7,6 +7,11 @@
 
 	<body>
 		<h1 id="heading">Hello World!</h1>
-		<button onclick="server.changeHeading()">Click Me!</button>
+		<button id="button">Click Me!</button>
+
+		<script>
+			document.getElementById("button")
+				.onclick = server.changeHeading
+		</script>
 	</body>
 </html>
